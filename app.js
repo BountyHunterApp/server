@@ -13,6 +13,7 @@ const signUpRoute = require('./routes/signUpRoute')
 const loginRoute = require('./routes/loginRoute')
 const bountyRoute = require('./routes/bountyRoute')
 const uploadRoute = require('./routes/GSCRoute')
+const userRoute = require('./routes/userRoute')
 
 app
   .use(cors())
@@ -23,6 +24,7 @@ app
   .use('/login', loginRoute)
   .use('/bounty', bountyRoute)
   .use('/uploads', uploadRoute)
+  .use('/users', userRoute)
 
   .get('/', (req, res) => {
     res.status(200).json({
