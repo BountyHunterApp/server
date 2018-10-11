@@ -11,6 +11,8 @@ mongoose.connect(process.env.DB_HOST, { useNewUrlParser: true })
 
 const signUpRoute = require('./routes/signUpRoute')
 const loginRoute = require('./routes/loginRoute')
+const bountyRoute = require('./routes/bountyRoute')
+const uploadRoute = require('./routes/GSCRoute')
 
 app
   .use(cors())
@@ -19,6 +21,8 @@ app
 
   .use('/register', signUpRoute)
   .use('/login', loginRoute)
+  .use('/bounty', bountyRoute)
+  .use('/uploads', uploadRoute)
 
   .get('/', (req, res) => {
     res.status(200).json({
