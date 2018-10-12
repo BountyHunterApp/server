@@ -15,6 +15,10 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, 'password required']
+  },
+  avatar: {
+    type: String,
+    default: 'https://storage.googleapis.com/bountyhunter/facebook-default-no-profile-pic1.jpg'
   }
 })
 
