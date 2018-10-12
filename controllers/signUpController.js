@@ -2,11 +2,12 @@ const User = require('../models/userModel')
 
 class SignUpControler {
 
-  static signUp (req, res) {
+  static signUp(req, res) {
     let data = {
       name: req.body.name,
-      email: req. body.email,
-      password: req.body.password
+      email: req.body.email,
+      password: req.body.password,
+      avatar: req.file.cloudStoragePublicUrl
     }
 
     let user = new User(data)
@@ -15,7 +16,8 @@ class SignUpControler {
       .then(data => {
         res.status(201).json({
           status: 'success',
-          message: 'creating new user success'
+          message: 'creating new user success',
+          data: data
         })
       })
       .catch(err => {
@@ -24,7 +26,7 @@ class SignUpControler {
           message: err.message
         })
       })
-      
+
   }
 
 }
