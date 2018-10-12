@@ -19,7 +19,7 @@ const targetBountySchema = new Schema({
     default: 0
   },
   detail: String,
-  LastSeen: String,
+  lastSeen: String,
   bountyPrice: Number,
   contactInfo: String,
   hairColor: String,
