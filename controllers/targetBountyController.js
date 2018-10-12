@@ -2,6 +2,24 @@ const TargetBounty = require('../models/targetBountyModel')
 
 class TargetBountyController {
 
+  static getDetail(req, res) {
+    TargetBounty.findOne({
+        _id: req.params.id
+      })
+      .then(data => {
+        res.status(200).json({
+          status: 'success',
+          data: data
+        })
+      })
+      .catch(err => {
+        res.status(500).json({
+          status: 'failed',
+          message: err.message
+        })
+      })
+  }
+
   static getListBounty(req, res) {
     TargetBounty.find()
       .then(data => {
@@ -28,10 +46,10 @@ class TargetBountyController {
       hairColor: req.body.hairColor,
       detail: req.body.detail,
       lastSeen: req.body.lastSeen,
-      bountyPrice: req.body.bountyPrice, 
+      bountyPrice: req.body.bountyPrice,
       contactInfo: req.body.contactInfo,
       userId: req.decoded.id
-    } 
+    }
 
     let targetBounty = new TargetBounty(data)
 
@@ -52,7 +70,9 @@ class TargetBountyController {
 
   static deleteBounty(req, res) {
 
-    TargetBounty.deleteOne({ _id: req.params.id })
+    TargetBounty.deleteOne({
+        _id: req.params.id
+      })
       .then(data => {
         res.status(200).json({
           status: 'success',
