@@ -1,4 +1,5 @@
 const TargetBounty = require('../models/targetBountyModel')
+const nodemailer = require('nodemailer')
 
 class TargetBountyController {
 
@@ -86,6 +87,45 @@ class TargetBountyController {
         })
       })
 
+  }
+
+  static sendInfo (req, res) {
+    TargetBounty.findById(req.params.id)
+    .populate('userId')
+    .then(data => {
+      let transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+              user: 'backgroundjobtest@gmail.com',
+              pass: process.env.EMAIL_PASSWORD
+          }
+      })
+      let mailOptions = {
+          from: 'backgroundjobtest@gmail.com',
+          to: data.userId.email,
+          subject: 'Someone Find Your Target',
+          html: 
+          `
+            <h2>Hi, ${data.userId.name}</h2>
+            <p> We just received an information about your target (${data.name}), this is the information:</p><br>
+            <p>${req.body.info}</p><br>
+            <h4>Thank you very much for your trust in our service,<h4>
+            <h3>Bounty Hunter App Developer Team</h3>
+          `
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              return console.log(error);
+          } else {
+              console.log('Message sent: %s', info.messageId);
+              done()
+          }
+      });
+    })
+    .catch(err => {
+      res.status(500).json({message: err})
+    })
   }
 
 }
