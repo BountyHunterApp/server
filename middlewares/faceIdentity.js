@@ -15,7 +15,6 @@ class FaceIdentity {
         static getInfoImage(req, res,next) {
                 
                 const imageUrl = req.file.cloudStoragePublicUrl
-                console.log(imageUrl)
                 if (imageUrl) {
                         const options = {
                                 uri: uriBase,
@@ -26,7 +25,6 @@ class FaceIdentity {
                                         'Ocp-Apim-Subscription-Key': subscriptionKey
                                 }
                         };
-                        console.log('----')
                         request.post(options, (error, response, body) => {
                                 if (error) {
                                         console.log('Error: ', error);
@@ -34,7 +32,6 @@ class FaceIdentity {
                                 }
                                 let person=JSON.parse(body)
                                 if(person.length==1 ){
-                                        console.log('post----')
                                    req.body.gender =person[0].faceAttributes.gender
                                    req.body.age = person[0].faceAttributes.age
                                    let hair={
@@ -48,8 +45,7 @@ class FaceIdentity {
                                                 hair.confidence=person[0].faceAttributes.hair.hairColor[i].confidence
                                         }                           
                                    }
-                                   req.body.haircolor=hair.color
-                                   console.log(req.body)
+                                   req.body.hairColor=hair.color
                                    next()
                                 }
                                 else{

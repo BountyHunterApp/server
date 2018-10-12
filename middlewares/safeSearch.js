@@ -21,12 +21,12 @@ module.exports = function (req, res, next) {
     .then(data => {
         let result = data.data.responses[0].safeSearchAnnotation
         if (result.adult === 'LIKELY' || result.adult === 'VERY_LIKELY' || result.spoof === 'LIKELY' || result.spoof === 'VERY_LIKELY' || result.medical === 'LIKELY' || result.medical === 'VERY_LIKELY' || result.violence === 'LIKELY' || result.violence === 'VERY_LIKELY' || result.racy === 'LIKELY' || result.racy === 'VERY_LIKELY') {
-            next('Inappropiate image')
+            res.status(500).json({message: 'Inappropiate image'})
         } else {
             next()
         }
     })
     .catch(err => {
-        next(err)
+        res.status(500).json({message: err})
     })
 }

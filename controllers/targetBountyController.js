@@ -25,7 +25,7 @@ class TargetBountyController {
       avatar: req.file.cloudStoragePublicUrl,
       gender: req.body.gender, // rudy
       age: req.body.age, //rudy
-      haircolor: req.body.haircolor,
+      hairColor: req.body.hairColor,
       detail: req.body.detail,
       lastSeen: req.body.lastSeen,
       bountyPrice: req.body.bountyPrice, 
