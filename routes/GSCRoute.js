@@ -1,10 +1,12 @@
 const route = require('express').Router()
 const GCS = require('../helpers/gscUploader')
+const faceIdentity = require('../middlewares/faceIdentity')
 const targetBountyController = require('../controllers/targetBountyController')
-const isLogin = require('../middlewares/isLogin')
-const safeSearch = require('../middlewares/safeSearch')
 
+
+const isLogin = require('../middlewares/isLogin')
+ 
 route.post('/', isLogin, GCS.multer.single('image'), 
-GCS.sendUploadToGCS, safeSearch, targetBountyController.createBounty)
+GCS.sendUploadToGCS, faceIdentity.getInfoImage, targetBountyController.createBounty)
 
 module.exports = route
